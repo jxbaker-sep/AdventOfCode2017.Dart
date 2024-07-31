@@ -12,17 +12,6 @@ class Position {
   @override
   int get hashCode => Object.hash(x, y);
 
-  Iterable<Position> neighbors() sync* {
-    yield Position(x-1, y-1);
-    yield Position(x+0, y-1);
-    yield Position(x+1, y-1);
-    yield Position(x-1, y);
-    yield Position(x+1, y);
-    yield Position(x-1, y+1);
-    yield Position(x+0, y+1);
-    yield Position(x+1, y+1);
-  }
-
   Position operator+(Vector other) => Position(x + other.x, y + other.y);
 
   // ignore: constant_identifier_names
