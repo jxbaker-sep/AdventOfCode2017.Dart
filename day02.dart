@@ -28,4 +28,4 @@ int do2(List<List<int>> data) =>
 
 int do1(List<List<int>> data) => data.map((row) => row.max -row.min).sum;
 
-List<List<int>> parse(String s) => s.lines().map((line) => number.allMatches(line).toList()).toList();
+List<List<int>> parse(String s) => s.lines.map((line) => number.allMatches(line).toList()).toList();

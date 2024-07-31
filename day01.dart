@@ -8,7 +8,7 @@ import 'utils/iterable_extensions.dart';
 import 'utils/lle.dart';
 import 'utils/string_extensions.dart';
 
-List<int> parse(String s) => s.lines().single.split('').map(int.parse).toList();
+List<int> parse(String s) => s.lines.single.split('').map(int.parse).toList();
 
 Future<void> main() async {
   final data = parse(await getInput('day01'));

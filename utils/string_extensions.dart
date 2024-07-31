@@ -1,5 +1,5 @@
 extension MyStringExtensions on String {
-  List<String> lines() {
+  List<String> get lines {
     return split("\n").map((l) => l.trim()).where((t) => t.isNotEmpty).toList();
   }
 
