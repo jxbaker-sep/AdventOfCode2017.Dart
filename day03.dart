@@ -47,8 +47,8 @@ Future<void> main() async {
 
 int do2(int input) {
   final grid = <Position, int>{Position.Zero: 1};
-  for(final x in xrange2(2, input)) {
-    final p = findGridPosition(x);
+  for(final (temp) in squareSpiral().skip(1)) {
+    final p = temp.p;
     final value = p.neighbors().map((n) => grid[n]).whereType<int>().sum;
     if (value > input) return value;
     grid[p] = value;
@@ -56,19 +56,35 @@ int do2(int input) {
   throw Exception();
 }
 
-Position findGridPosition(int input) {
-  final sqrtCiel = sqrt(input).ceil();
-  final shellWidth = sqrtCiel.isEven ? sqrtCiel + 1 : sqrtCiel;
-  final n = (shellWidth-1) ~/ 2;
-  final previousShellWidth = (shellWidth-2) * (shellWidth-2);
-  final x = shellWidth == 1 ? 0 : (input - previousShellWidth) % (shellWidth - 1);
-  final shellMax = shellWidth * shellWidth;
-
-  if (input == shellMax) return Position(n, n);
-  if (input >= shellMax - n * 2) return Position(n - n * 2 + x, n);
-  if (input >= shellMax - n * 4) return Position(n - n * 2, n - n * 2 + x);
-  if (input >= shellMax - n * 6) return Position(n - x, n - n * 2);
-  return Position(n, n - x);
+Iterable<({Position p, int value})> squareSpiral() sync* {
+  var current = Position.Zero;
+  var value = 1;
+  yield (p: current, value: value++);
+  current += Vector.East;
+  for(final shell in xrange(0xFFFF).skip(1)) {
+    for(final (v, delta) in [(Vector.North, -1), (Vector.West, 0), (Vector.South, 0), (Vector.East, 1)]) {
+      for(final _ in xrange(2 * shell + delta)) {
+        yield (p: current, value: value++);
+        current += v;
+      }
+    }
+  }
 }
 
-int do1(int value) => findGridPosition(value).manhattanDistance();
+// Position findGridPosition(int input) {
+//   final sqrtCiel = sqrt(input).ceil();
+//   final shellWidth = sqrtCiel.isEven ? sqrtCiel + 1 : sqrtCiel;
+//   final n = (shellWidth-1) ~/ 2;
+//   final previousShellWidth = (shellWidth-2) * (shellWidth-2);
+//   final x = shellWidth == 1 ? 0 : (input - previousShellWidth) % (shellWidth - 1);
+//   final shellMax = shellWidth * shellWidth;
+
+//   if (input == shellMax) return Position(n, n);
+//   if (input >= shellMax - n * 2) return Position(n - n * 2 + x, n);
+//   if (input >= shellMax - n * 4) return Position(n - n * 2, n - n * 2 + x);
+//   if (input >= shellMax - n * 6) return Position(n - x, n - n * 2);
+//   return Position(n, n - x);
+// }
+
+// int do1(int value) => findGridPosition(value).manhattanDistance();
+int do1(int value) => squareSpiral().skip(value-1).first.p.manhattanDistance();
