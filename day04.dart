@@ -7,7 +7,7 @@ import 'utils/string_extensions.dart';
 
 Future<void> main() async {
   final data = parse(await getInput('day04'));
-  group('Day 03', (){
+  group('Day 05', (){
     group('Part 1', (){
       test("Data", () => expect(do1(data), equals(386)));
     });

@@ -1,28 +1,25 @@
 import 'dart:collection';
 
-import 'package:collection/collection.dart';
-
 extension MyIterableExtensions<T> on Iterable<T> {
-  // int maxBy(int Function(T t) callback) => map(callback).max;
-  T findByMin(int Function(T t) callback) {
-    var first = true;
-    T? found;
-    int value = 0;
-    for(final f in this) {
-      if (first) {
-        found = f;
-        value = callback(f);
-        first = false;
-      } else {
-        final temp = callback(f);
-        if (temp < value) {
-          found = f;
-          value = temp;
-        }
-      }
-    }
-    return found ?? (throw Exception());
+  Iterable<T> whereMin(int Function(T) test) {
+    return fold<(List<T>, int)>(([], 0), (p, item) {
+      final x = test(item);
+      if (p.$1.isEmpty || x == p.$2) return (p.$1..add(item), x);
+      if (x < p.$2) return ([item], x);
+      return p;
+    }).$1;
   }
+
+  Iterable<T> whereMax(int Function(T) test) {
+    return fold<(List<T>, int)>(([], 0), (p, item) {
+      final x = test(item);
+      if (p.$1.isEmpty || x == p.$2) return (p.$1..add(item), x);
+      if (x > p.$2) return ([item], x);
+      return p;
+    }).$1;
+  }
+
+
 
   Iterable<T2> flatmap<T2>(Iterable<T2> Function(T t) callback) {
     return map(callback).expand((i)=>i);
