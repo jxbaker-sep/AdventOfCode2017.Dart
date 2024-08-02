@@ -5,7 +5,6 @@ import 'package:test/test.dart';
 import 'utils/input.dart';
 import 'utils/iterable_extensions.dart';
 import 'utils/parse_utils.dart';
-import 'utils/string_extensions.dart';
 
 Future<void> main() async {
   final sample = parse(await getInput('day08.sample'));
@@ -14,8 +13,6 @@ Future<void> main() async {
     group('Part 1', (){
       test("Sample", () => expect(do1(sample), equals((1, 10))));
       test("Data", () => expect(do1(data), equals((3880, 5035))));
-    });
-    group('Part 2', (){
     });
   });
 }
@@ -42,7 +39,7 @@ class Instruction {
   Instruction(this.register, this.increment, this.testRegister, this.testFunction);
 }
 
-List<Instruction> parse(String s) => s.lines.map((line) => instructionP.allMatches(line).single).toList();
+List<Instruction> parse(String s) => instructionP.onePerLine(s);
 
 final instructionP = seq4(lexical, incrementor, lexical.before('if'), testFunctionP)
   .map((m) => Instruction(m.$1, m.$2, m.$3, m.$4));

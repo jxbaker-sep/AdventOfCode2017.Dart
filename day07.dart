@@ -62,7 +62,7 @@ class WeightFactory {
   }
 }
 
-Map<String, Tower> parse(String s) => s.lines.map((line) => towerP.allMatches(line).single).toMap((t) => t.name, (t) => t);
+Map<String, Tower> parse(String s) => towerP.onePerLine(s).toMap((t) => t.name, (t) => t);
 
 String do1(Map<String, Tower> towers) {
   return bottomTower(towers);

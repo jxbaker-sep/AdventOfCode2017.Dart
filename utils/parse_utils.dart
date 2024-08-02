@@ -1,11 +1,15 @@
 import 'package:petitparser/petitparser.dart';
 
+import 'string_extensions.dart';
+
 extension ParserExtensions<T> on Parser<T> {
   Parser<T> before(String b) => skip(before: string(b).trim());
 
   Parser<T> after(String a) => skip(after: string(a).trim());
 
   Parser<T> between(String before, String after) => skip(before: string(before).trim(), after: string(after).trim());
+
+  List<T> onePerLine(String s) => s.lines.map((line) => allMatches(line).single).toList();
 
 }
 
