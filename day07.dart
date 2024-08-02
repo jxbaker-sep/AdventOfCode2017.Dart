@@ -6,7 +6,6 @@ import 'package:test/test.dart';
 import 'utils/input.dart';
 import 'utils/iterable_extensions.dart';
 import 'utils/parse_utils.dart';
-import 'utils/string_extensions.dart';
 
 Future<void> main() async {
   final sample = parse(await getInput('day07.sample'));

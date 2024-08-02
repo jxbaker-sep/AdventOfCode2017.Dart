@@ -8,7 +8,7 @@ import 'utils/xrange.dart';
 Future<void> main() async {
   final data = (await getInput('day10')).lines.single.split(',').map(int.parse).toList();
   final data2 = parse2(await getInput('day10'));
-  group('Day 09', (){
+  group('Day 10', (){
     group('Part 1', (){
       test("Sample", () => expect(do1(5, [3, 4, 1, 5]), equals(12)));
       test("Data", () => expect(do1(256, data), equals(40132)));
