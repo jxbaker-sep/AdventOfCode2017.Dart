@@ -23,43 +23,36 @@ Future<void> main() async {
   });
 }
 
-int do2(int steps, int iterations) {
+int do2(final int steps, final int iterations) {
   int afterZero = 0;
   var currentLength = 1;
   var current = 0;
-  // while (currentLength <= iterations) {
-  //   final wrapInNSteps = [((currentLength - current) / steps).ceil(), iterations - currentLength + 1].min;
-  //   final insertDex = (current + steps * wrapInNSteps) % (currentLength + wrapInNSteps - 1);
-  //   if (insertDex == 0) {
-  //     afterZero = currentLength + wrapInNSteps - 1;
-  //     print(afterZero);
-  //   }
-  //   currentLength += wrapInNSteps;
-  //   current = (insertDex + 1) % currentLength;
-  // }
-  // return afterZero;
-  for(final value in xrange(iterations)) {
+  while (currentLength <= iterations) {
+    final remaining = currentLength - current;
+    if (remaining > steps) {
+      final n = (remaining ~/ steps) - (remaining % steps == 0 ? 1 : 0);
+      currentLength += n;
+      current += n * steps + n;
+      continue;
+    }
     current = (current + steps) % currentLength;
     if (current == 0) {
-      afterZero = value + 1;
+      afterZero = currentLength;
     }
-    current += 1;
     currentLength += 1;
+    current += 1;
   }
-  
   return afterZero;
 }
 
 int do1(int steps, int iterations) {
   final ll = LinkedList<LLE<int>>();
   ll.add(LLE<int>(0));
-  var xx = -1;
   var current = ll.first;
   for(final i in xrange(iterations)) {    
     current = current.advanceWrap(steps);
     current.insertAfter(LLE<int>(i+1));
     current = current.next!;
-    if (xx != ll.first.next!.value) {xx = ll.first.next!.value; print(xx);}
   }
   return current.advanceWrap(1).value;
 }
