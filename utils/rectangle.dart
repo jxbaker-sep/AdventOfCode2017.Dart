@@ -19,8 +19,6 @@ extension RectangleOperations on Rectangle {
   }
 
   Rectangle? overlap(Rectangle r2) {
-    // print(this);
-    // print(r2);
     if (right < r2.left) return null;
     if (left > r2.right) return null;
     if (top > r2.bottom) return null;
@@ -36,7 +34,6 @@ extension RectangleOperations on Rectangle {
 
   List<Rectangle> exclude(Rectangle r2) {
     final overlapped = overlap(r2);
-    // print(overlapped);
     if (overlapped == null) return [this];
 
     final List<Rectangle> result = [];
@@ -45,13 +42,11 @@ extension RectangleOperations on Rectangle {
       result.add(Rectangle(left, top, overlapped.left - 1, bottom));
       l = overlapped.left;
     }
-    // print(result);
     var t = top;
     if (top < overlapped.top) {
       result.add(Rectangle(l, top, right, overlapped.top - 1));
       t = overlapped.top;
     }
-    // print(result);
 
     var r = right;
     if (right > overlapped.right) {
@@ -59,12 +54,10 @@ extension RectangleOperations on Rectangle {
       r = overlapped.right;
     }
 
-    // print(result);
 
     if (bottom > overlapped.bottom) {
       result.add(Rectangle(l, overlapped.bottom +1, r, bottom));
     }
-    // print(result);
 
     return result;
   }

@@ -7,23 +7,28 @@ import 'utils/xrange.dart';
 
 Future<void> main() async {
   final data = (await getInput('day10')).lines.single.split(',').map(int.parse).toList();
-  final data2 = parse2(await getInput('day10'));
+  final data2 = (await getInput('day10')).lines.single;
   group('Day 10', (){
     group('Part 1', (){
       test("Sample", () => expect(do1(5, [3, 4, 1, 5]), equals(12)));
       test("Data", () => expect(do1(256, data), equals(40132)));
     });
     group('Part 2', (){
-      test("Sample 1", () => expect(do2(256, parse2('')), equals('a2582a3a0e66e6e86e3812dcb672a272')));
-      test("Sample 2", () => expect(do2(256, parse2('AoC 2017')), equals('33efeb34ea91902bb2f59c9920caa6cd')));
-      test("Sample 3", () => expect(do2(256, parse2('1,2,3')), equals('3efbe78a8d82f29979031a4aa0b16a9d')));
-      test("Sample 4", () => expect(do2(256, parse2('1,2,4')), equals('63960835bcdc130f0b66d7ff4f6a5a8e')));
-      test("Sample 4", () => expect(do2(256, data2), equals('35b028fe2c958793f7d5a61d07a008c8')));
+      test("Sample 1", () => expect(knotHash(''), equals('a2582a3a0e66e6e86e3812dcb672a272')));
+      test("Sample 2", () => expect(knotHash('AoC 2017'), equals('33efeb34ea91902bb2f59c9920caa6cd')));
+      test("Sample 3", () => expect(knotHash('1,2,3'), equals('3efbe78a8d82f29979031a4aa0b16a9d')));
+      test("Sample 4", () => expect(knotHash('1,2,4'), equals('63960835bcdc130f0b66d7ff4f6a5a8e')));
+      test("Sample 4", () => expect(knotHash(data2), equals('35b028fe2c958793f7d5a61d07a008c8')));
     });
   });
 }
 
 List<int> parse2(String s) => (s.lines.firstOrNull ?? '').codeUnits + [17, 31, 73, 47, 23];
+
+String knotHash(String key) {
+  final lengths = key.codeUnits + [17, 31, 73, 47, 23];
+  return do2(256, lengths);
+}
 
 String do2(int knots, List<int> lengths) {
   var result = xrange(knots).toList();
