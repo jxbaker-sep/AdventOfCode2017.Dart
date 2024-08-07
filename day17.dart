@@ -1,7 +1,6 @@
 
 import 'dart:collection';
 
-import 'package:collection/collection.dart';
 import 'package:test/test.dart';
 
 import 'utils/input.dart';
@@ -30,7 +29,7 @@ int do2(final int steps, final int iterations) {
   while (currentLength <= iterations) {
     final remaining = currentLength - current;
     if (remaining > steps) {
-      final n = (remaining ~/ steps) - (remaining % steps == 0 ? 1 : 0);
+      final n = (remaining - 1) ~/ steps;
       currentLength += n;
       current += n * steps + n;
       continue;

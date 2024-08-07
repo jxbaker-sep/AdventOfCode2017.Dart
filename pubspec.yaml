@@ -1,7 +1,7 @@
 name: AdventOfCode2017.dart
 
 environment:
-  sdk: '^3.4.0'
+  sdk: '^3.5.0'
 dependencies:
   collection: ^1.19.0
   crypto: ^3.0.3
