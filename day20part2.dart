@@ -23,7 +23,7 @@ Future<void> main() async {
 }
 
 
-// int do2a(List<Particle> particles) {
+// int do2BruteForce(List<Particle> particles) {
 //   var remaining = xrange(particles.length).toSet();
 
 //   for(final _ in xrange(0xFFFF)) {

@@ -2,6 +2,8 @@
 
 import 'package:collection/collection.dart';
 
+import 'xrange.dart';
+
 extension MyListExtensions<T> on List<T> {
   Iterable<List<T>> permute() sync* {
     if (isEmpty) {
@@ -38,5 +40,17 @@ extension MyListListExtensions<T> on List<List<T>> {
       }
     }
     return columns;
+  }
+
+  List<List<T>> rotateRight() {
+    final List<List<T>> result = [];
+    for (final y in xrange(this[0].length)) {
+      final temp = <T>[];
+      for(final x in xrange(length)) {
+        temp.add(this[length - 1 - x][y]);
+      }
+    result.add(temp);
+    }
+    return result;
   }
 }
